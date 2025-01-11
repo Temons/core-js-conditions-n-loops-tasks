@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number.toString()[0] !== '-';
 }
 
 /**
@@ -38,8 +38,9 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const biggest = a > b ? a : b;
+  return biggest > c ? biggest : c;
 }
 
 /**
@@ -60,8 +61,11 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
+  return Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y);
 }
 
 /**
@@ -82,8 +86,9 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b <= c || a + c <= b || b + c <= a) return false;
+  return a === b || b === c || a === c;
 }
 
 /**
@@ -102,6 +107,28 @@ function isIsoscelesTriangle(/* a, b, c */) {
  */
 function convertToRomanNumerals(/* num */) {
   throw new Error('Not implemented');
+  // let res = '';
+  // let units = num > 9 ? num % 10 : num;
+  // const tens = Math.floor(num / 10);
+  // for (let i = 0; i < tens; i += 1) {
+  //   res += 'X';
+  // }
+  // // while (units > 0) {
+  // //   console.log('units', units);
+  // //   if (units >= 5) {
+  // //     units %= 5;
+  // //     res += 'V';
+  // //     console.log('units111', units);
+  // //   }
+  // //   if (units === 4) {
+  // //     res += 'IV';
+  // //     units = 0;
+  // //   } else if (units > 0) {
+  // //     res += 'I';
+  // //     units -= 1;
+  // //   }
+  // // }
+  // return res;
 }
 
 /**
@@ -135,8 +162,11 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  for (let start = 0, end = str.length - 1; start < end; start += 1, end -= 1) {
+    if (str[start] !== str[end]) return false;
+  }
+  return true;
 }
 
 /**
@@ -153,8 +183,11 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) return i;
+  }
+  return -1;
 }
 
 /**
@@ -172,8 +205,13 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let helper = num;
+  while (helper > 0) {
+    if (helper % 10 === digit) return true;
+    helper = Math.floor(helper / 10);
+  }
+  return false;
 }
 
 /**
@@ -189,8 +227,22 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let totalSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+
+  let leftSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum -= arr[i];
+    if (totalSum === leftSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+
+  return -1;
 }
 
 /**
@@ -252,6 +304,43 @@ function rotateMatrix(/* matrix */) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(/* arr */) {
+  // const pivot = arr[arr.length - 1];
+  // const left = [];
+  // const middle = [];
+  // const right = [];
+  // let leftIndex = 0;
+  // let middleIndex = 0;
+  // let rightIndex = 0;
+  // if (arr.length <= 1) {
+  //   return arr;
+  // }
+  //
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   if (arr[i] > pivot) {
+  //     right[rightIndex] = arr[i];
+  //     rightIndex += 1;
+  //   } else if (arr[i] === pivot) {
+  //     middle[middleIndex] = arr[i];
+  //     middleIndex += 1;
+  //   } else {
+  //     left[leftIndex] = arr[i];
+  //     leftIndex += 1;
+  //   }
+  // }
+  //
+  // const sortedLeft = sortByAsc(left);
+  // const sortedRight = sortByAsc(right);
+  //
+  // return [...sortedLeft, ...middle, ...sortedRight];
+
+  // if (arr.length <= 1) {
+  //   return arr;
+  // }
+  //
+  // const pivot = arr[Math.floor(arr.length / 2)];
+  // for (let i = 0; i < arr.length; i += 1) {}
+  // console.log('pivot', pivot);
+  // return [pivot];
   throw new Error('Not implemented');
 }
 
@@ -274,6 +363,22 @@ function sortByAsc(/* arr */) {
  */
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
+
+  // let result = str;
+  // for (let i = 0; i <= iterations; i += 1) {
+  //   console.log('result', result, iterations, i);
+  //   let start = '';
+  //   let end = '';
+  //   for (let letterIndex = 0; letterIndex < result.length; letterIndex += 1) {
+  //     if (letterIndex % 2 === 1) {
+  //       end += result[letterIndex];
+  //     } else {
+  //       start += result[letterIndex];
+  //     }
+  //   }
+  //   result = start + end;
+  // }
+  // return result;
 }
 
 /**
