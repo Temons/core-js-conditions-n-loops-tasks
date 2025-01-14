@@ -105,30 +105,27 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
-  // let res = '';
-  // let units = num > 9 ? num % 10 : num;
-  // const tens = Math.floor(num / 10);
-  // for (let i = 0; i < tens; i += 1) {
-  //   res += 'X';
-  // }
-  // // while (units > 0) {
-  // //   console.log('units', units);
-  // //   if (units >= 5) {
-  // //     units %= 5;
-  // //     res += 'V';
-  // //     console.log('units111', units);
-  // //   }
-  // //   if (units === 4) {
-  // //     res += 'IV';
-  // //     units = 0;
-  // //   } else if (units > 0) {
-  // //     res += 'I';
-  // //     units -= 1;
-  // //   }
-  // // }
-  // return res;
+function convertToRomanNumerals(num) {
+  let res = '';
+  const helper = {
+    1: 'I',
+    2: 'II',
+    3: 'III',
+    4: 'IV',
+    5: 'V',
+    6: 'VI',
+    7: 'VII',
+    8: 'VIII',
+    9: 'IX',
+  };
+
+  const units = num > 9 ? num % 10 : num;
+  const tens = Math.floor(num / 10);
+  for (let i = 0; i < tens; i += 1) {
+    res += 'X';
+  }
+
+  return helper[units] ? res + helper[units] : res;
 }
 
 /**
@@ -146,8 +143,41 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let res = '';
+  const helper = {
+    0: 'zero',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+  };
+  for (let i = 0; i < numberStr.length; i += 1) {
+    if (helper[numberStr[i]]) {
+      res += helper[numberStr[i]];
+    }
+    switch (numberStr[i]) {
+      case '-':
+        res += 'minus';
+        break;
+      case '.':
+      case ',':
+        res += 'point';
+        break;
+      default:
+        break;
+    }
+    if (i !== numberStr.length - 1) {
+      res += ' ';
+    }
+  }
+
+  return res;
 }
 
 /**
@@ -266,8 +296,54 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  const baseArray = [];
+  baseArray.length = size;
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [...baseArray];
+  }
+  let count = 1;
+  let minFillRow = 0;
+  let maxFillRow = size - 1;
+  let minFillCol = 0;
+  let maxFillCol = size - 1;
+
+  while (minFillRow <= maxFillRow && minFillCol <= maxFillCol) {
+    for (let col = minFillCol; col <= maxFillRow; col += 1) {
+      matrix[minFillRow][col] = count;
+      count += 1;
+    }
+
+    minFillRow += 1;
+
+    for (let row = minFillRow; row <= maxFillRow; row += 1) {
+      matrix[row][maxFillCol] = count;
+      count += 1;
+    }
+
+    maxFillCol -= 1;
+
+    if (minFillRow <= maxFillRow) {
+      for (let col = maxFillCol; col >= minFillCol; col -= 1) {
+        matrix[maxFillRow][col] = count;
+        count += 1;
+      }
+
+      maxFillRow -= 1;
+    }
+
+    if (minFillCol <= maxFillCol) {
+      for (let row = maxFillRow; row >= minFillRow; row -= 1) {
+        matrix[row][minFillCol] = count;
+        count += 1;
+      }
+
+      minFillCol += 1;
+    }
+  }
+
+  return matrix;
 }
 
 /**
