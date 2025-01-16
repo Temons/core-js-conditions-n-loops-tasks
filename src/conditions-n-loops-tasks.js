@@ -361,6 +361,7 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]     3 6 9
  *  ]                 ]
  */
+
 function rotateMatrix(matrix) {
   const result = matrix;
   const { length } = result;
@@ -383,6 +384,8 @@ function rotateMatrix(matrix) {
       result[rows][right] = temp;
     }
   }
+
+  return result;
 }
 
 /**
