@@ -402,45 +402,17 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  // const pivot = arr[arr.length - 1];
-  // const left = [];
-  // const middle = [];
-  // const right = [];
-  // let leftIndex = 0;
-  // let middleIndex = 0;
-  // let rightIndex = 0;
-  // if (arr.length <= 1) {
-  //   return arr;
-  // }
-  //
-  // for (let i = 0; i < arr.length; i += 1) {
-  //   if (arr[i] > pivot) {
-  //     right[rightIndex] = arr[i];
-  //     rightIndex += 1;
-  //   } else if (arr[i] === pivot) {
-  //     middle[middleIndex] = arr[i];
-  //     middleIndex += 1;
-  //   } else {
-  //     left[leftIndex] = arr[i];
-  //     leftIndex += 1;
-  //   }
-  // }
-  //
-  // const sortedLeft = sortByAsc(left);
-  // const sortedRight = sortByAsc(right);
-  //
-  // return [...sortedLeft, ...middle, ...sortedRight];
-
-  // if (arr.length <= 1) {
-  //   return arr;
-  // }
-  //
-  // const pivot = arr[Math.floor(arr.length / 2)];
-  // for (let i = 0; i < arr.length; i += 1) {}
-  // console.log('pivot', pivot);
-  // return [pivot];
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const array = arr;
+  for (let i = 0; i < array.length; i += 1) {
+    if (arr[i] > arr[i + 1]) {
+      const temp = arr[i + 1];
+      array[i + 1] = arr[i];
+      array[i] = temp;
+      i -= 2;
+    }
+  }
+  return array;
 }
 
 /**
